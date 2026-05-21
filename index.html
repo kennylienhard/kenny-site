@@ -220,10 +220,8 @@
 
   .pfp { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 24px; image-rendering: pixelated; }
   .clinks { display: flex; flex-direction: column; gap: 14px; }
-  .crow { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--dim); transition: color 0.2s; cursor: none; }
-  .crow:hover { color: var(--text); }
-  .carrow { font-size: 13px; transition: transform 0.2s; }
-  .crow:hover .carrow { transform: translateX(4px); }
+  .crow { display: block; font-size: 15px; color: var(--dim); transition: color 0.2s, padding-left 0.25s ease; cursor: none; }
+  .crow:hover { color: var(--text); padding-left: 12px; }
 
   @media (max-width: 1024px) {
     .vlist { grid-template-columns: 1fr 1fr; max-width: 580px; }
@@ -394,10 +392,10 @@
     <img src="/public/images/pfp.png" alt="Kenny Lienhard" class="pfp">
     <h2 class="heading" style="margin-bottom:36px">Let's connect.</h2>
     <div class="clinks">
-      <a href="mailto:kenny@motherbird.ai" class="crow"><span class="carrow">&rarr;</span> kenny@motherbird.ai</a>
-      <a href="https://x.com/kenny83" target="_blank" class="crow"><span class="carrow">&rarr;</span> X / Twitter</a>
-      <a href="https://linkedin.com/in/kennylienhard" target="_blank" class="crow"><span class="carrow">&rarr;</span> LinkedIn</a>
-      <a href="https://github.com/motherbirdai" target="_blank" class="crow"><span class="carrow">&rarr;</span> GitHub</a>
+      <a href="mailto:kenny@motherbird.ai" class="crow">kenny@motherbird.ai</a>
+      <a href="https://x.com/kenny83" target="_blank" class="crow">X / Twitter</a>
+      <a href="https://linkedin.com/in/kennylienhard" target="_blank" class="crow">LinkedIn</a>
+      <a href="https://github.com/motherbirdai" target="_blank" class="crow">GitHub</a>
     </div>
   </div>
 
