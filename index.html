@@ -19,26 +19,14 @@
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root { --bg: #f5f3f0; --text: #1a1a1a; --dim: #999; --border: #ddd; }
-  html { overflow: hidden; height: 100%; cursor: none; }
+  html { overflow: hidden; height: 100%; }
   body {
     font-family: 'Inter Tight', sans-serif; background: var(--bg); color: var(--text);
-    height: 100%; overflow: hidden; -webkit-font-smoothing: antialiased; cursor: none;
+    height: 100%; overflow: hidden; -webkit-font-smoothing: antialiased;
   }
   ::selection { background: var(--text); color: var(--bg); }
-  a { color: inherit; text-decoration: none; cursor: none; }
+  a { color: inherit; text-decoration: none; }
 
-  /* CURSOR */
-  .cursor {
-    position: fixed; z-index: 9999; pointer-events: none;
-    width: 12px; height: 12px; background: var(--text); border: 1.5px solid var(--text);
-    border-radius: 50%; transform: translate(-50%, -50%);
-    transition: width 0.25s cubic-bezier(0.16,1,0.3,1), height 0.25s cubic-bezier(0.16,1,0.3,1), background 0.25s ease;
-  }
-  .cursor.hovering { width: 56px; height: 56px; background: transparent; }
-  .cursor.light { background: var(--bg); border-color: var(--bg); }
-  .cursor.light.hovering { background: transparent; border-color: var(--bg); }
-  .cursor.on-card { background: var(--text); border-color: var(--text); }
-  .cursor.on-card.hovering { background: transparent; border-color: var(--text); }
 
   /* NAV */
   nav {
@@ -66,8 +54,7 @@
   .sidebar-links { display: flex; flex-direction: column; }
   .sidebar-link {
     font-size: 32px; font-weight: 300; color: var(--dim); padding: 12px 0;
-    border-bottom: 1px solid var(--border); display: block; cursor: none;
-    opacity: 0; transform: translateX(30px);
+    border-bottom: 1px solid var(--border); display: block;    opacity: 0; transform: translateX(30px);
     transition: color 0.2s, padding-left 0.25s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
   }
   .sidebar.open .sidebar-link { opacity: 1; transform: translateX(0); }
@@ -89,8 +76,7 @@
   .sidebar-foot a:hover { color: var(--text); }
   .sidebar-overlay {
     position: fixed; inset: 0; z-index: 98; background: rgba(0,0,0,0.05);
-    opacity: 0; pointer-events: none; transition: opacity 0.4s ease; cursor: none;
-  }
+    opacity: 0; pointer-events: none; transition: opacity 0.4s ease;  }
   .sidebar-overlay.visible { opacity: 1; pointer-events: auto; }
 
 
@@ -255,8 +241,6 @@
     .heading { font-size: clamp(22px, 5vw, 36px); }
     nav { padding: 16px 20px; }
     .sidebar { width: 100%; }
-    html, body, a, button, .menu-toggle, .crow, .sidebar-link { cursor: auto !important; }
-    .cursor { display: none !important; }
     .vlist { grid-template-columns: 1fr; max-width: 100%; }
     .counter { display: none; }
     .progress-track { display: none; }
@@ -268,7 +252,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
 
 <nav>
   <div class="nav-name" id="navName">Kenny Lienhard</div>
@@ -404,34 +387,6 @@
 </div>
 
 <script>
-  var cur = document.getElementById('cursor');
-  var mx = -100, my = -100, cx = -100, cy = -100;
-
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX; my = e.clientY;
-  });
-
-  (function cursorLoop() {
-    cx += (mx - cx) * 0.35;
-    cy += (my - cy) * 0.35;
-    cur.style.left = cx + 'px';
-    cur.style.top = cy + 'px';
-    requestAnimationFrame(cursorLoop);
-  })();
-
-  document.querySelectorAll('a, .menu-toggle, .sidebar-link, .crow').forEach(function(el) {
-    el.addEventListener('mouseenter', function() { cur.classList.add('hovering'); });
-    el.addEventListener('mouseleave', function() { cur.classList.remove('hovering'); });
-  });
-
-  document.querySelectorAll('.vrow, .hero-content').forEach(function(el) {
-    el.addEventListener('mouseenter', function() { cur.classList.remove('light'); cur.classList.add('on-card'); });
-    el.addEventListener('mouseleave', function() { cur.classList.remove('on-card'); });
-  });
-
-  document.getElementById('sidebar').addEventListener('mouseenter', function() { cur.classList.add('light'); });
-  document.getElementById('sidebar').addEventListener('mouseleave', function() { if (!sidebarOpen) cur.classList.remove('light'); });
-
   var sidebarOpen = false;
   function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
@@ -440,7 +395,6 @@
     document.getElementById('sOverlay').classList.toggle('visible', sidebarOpen);
     if (sidebarOpen) {
       mt.style.color = '#1a1a1a';
-      cur.classList.remove('light');
     }
   }
 
@@ -540,7 +494,7 @@
     }
     magneticPull();
     var d = tx - sx;
-    sx += d * 0.1;
+    sx += d * 0.18;
     if (Math.abs(d) < 0.5) sx = tx;
     hs.style.transform = 'translateX(' + (-sx) + 'px)';
 
@@ -554,7 +508,6 @@
     var currentPanel = sx / pw;
     var onDarkPanel = currentPanel < 0.9 || (currentPanel > 1.9 && currentPanel < 2.9) || currentPanel > 3.9;
     var onDark = onDarkPanel && !sidebarOpen;
-    cur.classList.toggle('light', onDark);
     navName.style.color = onDarkPanel ? '#f5f3f0' : '#1a1a1a';
     mt.style.color = onDark ? '#f5f3f0' : '#1a1a1a';
     cnt.style.color = onDarkPanel ? '#f5f3f0' : '#999';
