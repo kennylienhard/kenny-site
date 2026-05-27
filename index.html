@@ -205,7 +205,8 @@
   .contact-panel .crow { color: rgba(245,243,240,0.6); }
   .contact-panel .crow:hover { color: #f5f3f0; }
 
-  .pfp { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 24px; image-rendering: pixelated; }
+  .pfp { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 24px; image-rendering: pixelated; transition: transform 0.25s ease; }
+  .pfp:hover { transform: scale(1.05); }
   .clinks { display: flex; flex-direction: column; gap: 14px; width: max-content; }
   .crow { display: inline-block; font-size: 15px; color: var(--dim); transition: color 0.2s, padding-left 0.25s ease; }
   .crow:hover { color: var(--text); padding-left: 5px; }
